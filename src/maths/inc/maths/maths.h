@@ -13,5 +13,18 @@ extern double div(double a, double b);
 extern double divr(double a, double b);
 extern long long factorial(long long a);
 
+extern double pow(double a, unsigned long long n);
+
+extern double sqrt(double a);
+extern double sqrtn(double n, unsigned long long a);
+
+extern double GCD(double a);
+
+extern double log(double a, double n);
+extern double log2(double a);
+extern double ln(double a);
+
+extern double euler(double x);
+
 
 #endif
