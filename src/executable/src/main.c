@@ -46,6 +46,15 @@ void proceed_input()
             }
             printf(DEFAULT_BINARY_OPERATION_OUTPUT_FMT, a, c, b, div(a, b));
             break;
+        case '%':
+            sres = scanf_s(DEFAULT_BINARY_OPERATION_INPUT_FMT, &a, &b);
+            if (sres != 2)
+            {
+                fprintf(stderr, "failed to read values from console input!");
+                continue;
+            }
+            printf(DEFAULT_BINARY_OPERATION_OUTPUT_FMT, a, c, b, divr(a, b));
+            break;
         case '+':
             sres = scanf_s(DEFAULT_BINARY_OPERATION_INPUT_FMT, &a, &b);
             if (sres != 2)

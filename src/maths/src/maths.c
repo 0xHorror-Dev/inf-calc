@@ -1,6 +1,14 @@
 #include <maths/maths.h>
-#include <stdio.h>
-#include <stdio.h>
+
+inline double abs(double a)
+{
+    // sign bit is zero
+    unsigned long long mask = 0x7FFFFFFFFFFFFFFF;
+
+    unsigned long long* pa = (unsigned long long*) & a;
+    *pa &= mask;
+    return a;
+}
 
 // summate a and b
 extern double sum(double a, double b)
@@ -23,13 +31,27 @@ extern double mul(double a, double b)
 // divide a and b
 extern double div(double a, double b)
 {
-    return a*b;
+    return a/b;
 }
 
 // divide reminder a and b
 extern double divr(double a, double b)
 {
-    return (a * b) - (long long)(a * b);
+    if (b == 0.0) 
+    {
+        //fprintf(stderr, "divider is zero!");
+        //exit(-1);
+    }
+
+    double absa = abs(a);
+    double absb = abs(b);
+
+    while (absa >= absb)
+    {
+        absa -= absb;
+    }
+
+    return abs(absa);
 }
 
 extern unsigned long long factorial(unsigned long long a)
@@ -42,15 +64,7 @@ extern unsigned long long factorial(unsigned long long a)
     return res;
 }
 
-inline double abs(double a)
-{
-    // sign bit is zero
-    unsigned long long mask = 0x7FFFFFFFFFFFFFFF;
 
-    unsigned long long* pa = (unsigned long long*)&a;
-    *pa &= mask;
-    return a;
-}
 
 extern double sqrt(double a)
 {
@@ -90,8 +104,8 @@ extern double sqrtn(double a, unsigned long long n)
     if (a == 0) return 0;
     else if ((a < 0 && n % 2 == 0))
     {
-        fprintf(stderr, "There is no even root of a negative number.");
-        exit(-1);
+        //fprintf(stderr, "There is no even root of a negative number.");
+        //exit(-1);
     }
     else if (a < 0) {
         low = a; 
@@ -115,17 +129,23 @@ extern double sqrtn(double a, unsigned long long n)
     return (low + high) / 2;
 }
 
-extern double GCD(double a)
+extern long long GCD(long long a, long long b)
 {
-
+    while (b != 0) 
+    {
+        long long temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
 }
 
 extern double log(double a, double n)
 {
     if (a <= 0 || n <= 0 || n == 1)
     {
-        fprintf(stderr, "incorrect input log%lf (%lf)", a, n);
-        exit(-1);
+        //fprintf(stderr, "incorrect input log%lf (%lf)", a, n);
+        //exit(-1);
     }
     return ln(a) / ln(n);
 }
@@ -151,10 +171,19 @@ extern double ln(double a)
     return 2 * result; // return 2 * ln((x - 1) / (x + 1))
 }
 
-extern double euler(double a)
+extern long long euler(long long a)
 {
-
+    int result = a ;
+    for (int p = 2; p * p <= a; ++p) 
+    {
+        if (a % p == 0) {
+            while (a % p == 0)
+                a /= p;
+            result -= result / p;
+        }
+    }
+    // Если n имеет простой делитель больше sqrt(n)
+    if (a > 1)
+        result -= result / a;
+    return result;
 }
-
-
-

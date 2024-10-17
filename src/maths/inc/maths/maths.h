@@ -18,13 +18,12 @@ extern double pow(double a, unsigned long long n);
 extern double sqrt(double a);
 extern double sqrtn(double n, unsigned long long a);
 
-extern double GCD(double a);
+extern long long GCD(long long a, long long b);
 
 extern double log(double a, double n);
 extern double log2(double a);
 extern double ln(double a);
 
-extern double euler(double x);
-
+extern long long euler(long long x);
 
 #endif
