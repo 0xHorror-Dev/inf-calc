@@ -13,12 +13,14 @@ extern double div(double a, double b);
 extern double divr(double a, double b);
 extern unsigned long long factorial(unsigned long long a);
 
-extern double pow(double a, unsigned long long n);
+extern long long pow(double a, unsigned long long n);
 
 extern double sqrt(double a);
 extern double sqrtn(double n, unsigned long long a);
 
 extern double GCD(double a, double b);
+
+extern double fmod(double a, double b );
 
 extern double log(double a, double n);
 extern double log2(double a);

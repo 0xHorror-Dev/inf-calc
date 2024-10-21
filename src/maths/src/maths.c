@@ -1,4 +1,5 @@
 #include <maths/maths.h>
+#include <stdio.h>
 
 static inline double abs(double a)
 {
@@ -39,8 +40,8 @@ extern double fmod(double a, double b)
 {
     if (b == 0.0) 
     {
-        //fprintf(stderr, "divider is zero!");
-        //exit(-1);
+        fprintf(stderr, "divider is zero!");
+        exit(-1);
     }
 
     return a - (long long)(a / b) * b;
@@ -55,8 +56,6 @@ extern unsigned long long factorial(unsigned long long a)
     }
     return res;
 }
-
-
 
 extern double sqrt(double a)
 {
@@ -76,7 +75,7 @@ extern double sqrt(double a)
     return guess;
 }
 
-extern double pow(double a, unsigned long long n)
+extern long long pow(double a, unsigned long long n)
 {
     if (a == 0) return 0;
     double result = 1;
@@ -96,10 +95,11 @@ extern double sqrtn(double a, unsigned long long n)
     if (a == 0) return 0;
     else if ((a < 0 && n % 2 == 0))
     {
-        //fprintf(stderr, "There is no even root of a negative number.");
-        //exit(-1);
+        fprintf(stderr, "There is no even root of a negative number.");
+        exit(-1);
     }
-    else if (a < 0) {
+    else if (a < 0) 
+    {
         low = a; 
         high = 0;
     }else {
@@ -136,8 +136,8 @@ extern double log(double a, double n)
 {
     if (a <= 0 || n <= 0 || n == 1)
     {
-        //fprintf(stderr, "incorrect input log%lf (%lf)", a, n);
-        //exit(-1);
+        fprintf(stderr, "incorrect input log%lf (%lf)", a, n);
+        exit(-1);
     }
     return ln(a) / ln(n);
 }
@@ -155,7 +155,8 @@ extern double ln(double a)
     double term_squared = term * term;
     double current_term = term;
 
-    for (int n = 1; n < 1000000; n += 2) {
+    for (unsigned int n = 1; n < 1000000; n += 2) 
+    {
         result += current_term / n;
         current_term *= term_squared; // Move to the next member of the row
     }
@@ -165,8 +166,8 @@ extern double ln(double a)
 
 extern long long euler(long long a)
 {
-    int result = a ;
-    for (int p = 2; p * p <= a; ++p) 
+    long long result = a ;
+    for (unsigned long long p = 2; p * p <= a; ++p) 
     {
         if (a % p == 0) {
             while (a % p == 0)
