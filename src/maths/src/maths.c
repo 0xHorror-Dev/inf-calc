@@ -1,6 +1,6 @@
 #include <maths/maths.h>
 
-inline double abs(double a)
+static inline double abs(double a)
 {
     // sign bit is zero
     unsigned long long mask = 0x7FFFFFFFFFFFFFFF;
@@ -35,7 +35,7 @@ extern double div(double a, double b)
 }
 
 // divide reminder a and b
-extern double divr(double a, double b)
+extern double fmod(double a, double b)
 {
     if (b == 0.0) 
     {
@@ -43,15 +43,7 @@ extern double divr(double a, double b)
         //exit(-1);
     }
 
-    double absa = abs(a);
-    double absb = abs(b);
-
-    while (absa >= absb)
-    {
-        absa -= absb;
-    }
-
-    return abs(absa);
+    return a - (long long)(a / b) * b;
 }
 
 extern unsigned long long factorial(unsigned long long a)
@@ -129,12 +121,12 @@ extern double sqrtn(double a, unsigned long long n)
     return (low + high) / 2;
 }
 
-extern long long GCD(long long a, long long b)
+extern double GCD(double a, double b)
 {
     while (b != 0) 
     {
         long long temp = b;
-        b = a % b;
+        b =  fmod(a,b);
         a = temp;
     }
     return a;
